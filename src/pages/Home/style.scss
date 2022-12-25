@@ -1,0 +1,92 @@
+.home-page {
+  .about-box-list {
+    --about-box-spacing: 20px;
+    --about-box-columns: 1;
+    margin-left: calc(-1 * var(--about-box-spacing));
+    margin-bottom: calc(-1 * var(--about-box-spacing));
+
+    .about-box-item {
+      width: calc(calc(100% / var(--about-box-columns)) - var(--about-box-spacing));
+      margin-left: var(--about-box-spacing);
+      margin-bottom: var(--about-box-spacing);
+    }
+
+    @media (min-width: 500px) {
+      --about-box-columns: 2;
+    }
+
+    @media (min-width: 1024px) {
+      --about-box-columns: 4;
+    }
+  }
+
+  .course-list {
+    --course-list-spacing: 12px;
+    --course-list-bottom-spacing: 16px;
+    --course-list-columns: 1;
+    margin-left: calc(-1 * var(--course-list-spacing));
+    margin-bottom: calc(-1 * var(--course-list-bottom-spacing));
+
+    .course-item {
+      width: calc(calc(100% / var(--course-list-columns)) - var(--course-list-spacing));
+      margin-left: var(--course-list-spacing);
+      margin-bottom: var(--course-list-bottom-spacing);
+    }
+
+    @media (min-width: 450px) {
+      --course-list-columns: 2;
+    }
+
+    @media (min-width: 768px) {
+      --course-list-columns: 3;
+    }
+
+    @media (min-width: 1024px) {
+      --course-list-columns: 4;
+    }
+  }
+
+  .product-list {
+    --product-list-spacing: 12px;
+    --product-list-bottom-spacing: 16px;
+    --product-list-columns: 1;
+    margin-left: calc(-1 * var(--product-list-spacing));
+    margin-bottom: calc(-1 * var(--product-list-bottom-spacing));
+
+    .product-item {
+      width: calc(calc(100% / var(--product-list-columns)) - var(--product-list-spacing));
+      margin-left: var(--product-list-spacing);
+      margin-bottom: var(--product-list-bottom-spacing);
+    }
+
+    @media (min-width: 450px) {
+      --product-list-columns: 2;
+    }
+
+    @media (min-width: 768px) {
+      --product-list-columns: 3;
+    }
+
+    @media (min-width: 1024px) {
+      --product-list-columns: 4;
+    }
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+
+  .feedback-content {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 30px;
+      border-right: 10px solid transparent;
+      border-bottom: 12px solid #ededed;
+      border-left: 10px solid transparent;
+    }
+  }
+}

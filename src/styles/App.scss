@@ -1,0 +1,36 @@
+// load all component style
+@import '../components/Pagination/style.scss';
+@import '../components/Star/style.scss';
+
+// load all layout style
+@import '../layouts/Header/style.scss';
+
+// load all pages style
+@import '../pages/Home/style.scss';
+@import '../pages/Blog/style.scss';
+@import '../pages/AllProducts/style.scss';
+@import '../pages/AllCourses/style.scss';
+@import '../pages/Cart/style.scss';
+
+// load all swiper style
+@import 'swiper/css';
+
+.App {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+main:has(> .checkout-page),
+main:has(> .home-page),
+main:has(> .contact-page),
+main:has(> .lecturers-cooperation-page) {
+  background-color: #f8f8f8;
+}
+
+.main-wrapper:has(> main > .checkout-page),
+.main-wrapper:has(> main > .home-page),
+.main-wrapper:has(> main > .contact-page),
+.main-wrapper:has(> main > .lecturers-cooperation-page) {
+  background-color: #f8f8f8;
+}

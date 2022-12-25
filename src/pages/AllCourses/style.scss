@@ -1,0 +1,22 @@
+.all-courses-page {
+  .course-list {
+    --course-list-spacing: 30px;
+    --course-list-columns: 1;
+    margin-left: calc(-1 * var(--course-list-spacing));
+    margin-bottom: calc(-1 * var(--course-list-spacing));
+
+    .course-item {
+      width: calc(calc(100% / var(--course-list-columns)) - var(--course-list-spacing));
+      margin-left: var(--course-list-spacing);
+      margin-bottom: var(--course-list-spacing);
+    }
+
+    @media (min-width: 530px) {
+      --course-list-columns: 2;
+    }
+
+    @media (min-width: 1280px) {
+      --course-list-columns: 3;
+    }
+  }
+}
