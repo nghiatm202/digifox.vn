@@ -1,0 +1,191 @@
+.account {
+    margin: 40px 0;
+
+    .col-login {
+        padding: 25px 40px;
+        margin-left: 135px;
+        border-right: 1px solid #dedede;
+
+        .title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #161616;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            .form-group {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    margin-bottom: 5px;
+                    font-weight: 400;
+                    color: #404144;
+
+                    span {
+                        color: red;
+                    }
+                }
+
+                input {
+                    padding: 0 15px;
+                    max-width: 100%;
+                    width: 100%;
+                    height: 40px;
+                    border: 1px solid #0000001a;
+                    border-radius: 4px;
+                    background-color: #00000000;
+                    box-shadow: none;
+                    font-size: 14px;
+                    outline: none;
+                }
+            }
+
+            button {
+                width: 100%;
+                border-radius: 4px;
+                font-weight: 600;
+                font-size: 14px;
+                color: #fff;
+                background-color: #ff5e2b;
+                padding: 12px 20px;
+                margin-bottom: 20px;
+            }
+
+            .form-footer {
+                display: flex;
+                justify-content: space-between;
+
+                .form-group {
+                    display: flex;
+                    flex-direction: row;
+                    height: 30px;
+
+                    input {
+                        height: 30px;
+                        margin-right: 8px;
+                        padding: 0;
+                        width: 14px;
+                    }
+
+                    label {
+                        height: auto;
+                        line-height: 25px;
+                        cursor: pointer;
+                    }
+                }
+
+                a {
+                    height: 30px;
+
+                    &:hover {
+                        color: #ff5e2b;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .col-register {
+        padding: 25px 40px;
+        margin-left: 135px;
+        border-right: 1px solid #dedede;
+
+        .title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #161616;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            .form-group {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    margin-bottom: 5px;
+                    font-weight: 400;
+                    color: #404144;
+
+                    span {
+                        color: red;
+                    }
+                }
+
+                input {
+                    padding: 0 15px;
+                    max-width: 100%;
+                    width: 100%;
+                    height: 40px;
+                    border: 1px solid #0000001a;
+                    border-radius: 4px;
+                    background-color: #00000000;
+                    box-shadow: none;
+                    font-size: 14px;
+                    outline: none;
+                }
+            }
+
+            p {
+                margin-bottom: 20px;
+                font-size: 15px;
+            }
+
+            button {
+                width: 100%;
+                border-radius: 4px;
+                font-weight: 600;
+                font-size: 14px;
+                color: #fff;
+                background-color: #ff5e2b;
+                padding: 12px 20px;
+                margin-bottom: 20px;
+            }
+
+        }
+    }
+
+    .col-register-text {
+        padding: 25px 40px;
+        margin-right: 135px;
+        text-align: center;
+
+        .title {
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #161616;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 14px;
+            line-height: 18px;
+            color: #333;
+            font-weight: 500;
+            border-radius: 4px;
+
+            &:hover {
+                color: #333;
+                background-color: #f7f7f7;
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { AllCourses, AllProducts, Blog, Cart, Checkout, Contact, Home, LecturersCooperation } from '../pages';
+import { AllCourses, AllProducts, Blog, Cart, Checkout, Contact, Home, LecturersCooperation, Account, LostPassword } from '../pages';
 
 const routes = [
   {
@@ -33,6 +33,14 @@ const routes = [
     path: '/dat-hang',
     element: <Checkout />,
   },
+  {
+    path: '/tai-khoan',
+    element: <Account />,
+  },
+  {
+    path: '/lost-password',
+    element: <LostPassword />
+  }
 ];
 
 export default routes;
