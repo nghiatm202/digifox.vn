@@ -1,4 +1,15 @@
-import { AllCourses, AllProducts, Blog, Cart, Checkout, Contact, Home, LecturersCooperation, Account, LostPassword } from '../pages';
+import {
+  AllCourses,
+  AllProducts,
+  Blog,
+  Cart,
+  Checkout,
+  Contact,
+  Home,
+  LecturersCooperation,
+  Account,
+  LostPassword,
+} from '../pages';
 
 const routes = [
   {
@@ -39,8 +50,8 @@ const routes = [
   },
   {
     path: '/lost-password',
-    element: <LostPassword />
-  }
+    element: <LostPassword />,
+  },
 ];
 
 export default routes;
