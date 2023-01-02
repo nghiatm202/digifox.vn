@@ -1,51 +1,49 @@
 .lost-password {
-    form {
-        margin: 0 400px;
-        padding: 40px 0;
+  form {
+    margin: 0 400px;
+    padding: 40px 0;
 
-        p {
-            font-size: 16px;
-            line-height: 2;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #dedede;
-        }
-
-        .form-group {
-            margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-
-            label {
-                margin-bottom: 5px;
-                font-weight: 400;
-                color: #404144;
-
-            }
-
-            input {
-                padding: 0 15px;
-                max-width: 100%;
-                width: 100%;
-                height: 40px;
-                border: 1px solid #0000001a;
-                border-radius: 4px;
-                background-color: #00000000;
-                box-shadow: none;
-                font-size: 14px;
-                outline: none;
-            }
-
-        }
-
-        button {
-            width: 100%;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #fff;
-            background-color: #ff5e2b;
-            padding: 12px 20px;
-            margin-bottom: 20px;
-        }
+    p {
+      font-size: 16px;
+      line-height: 2;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #dedede;
     }
+
+    .form-group {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 5px;
+        font-weight: 400;
+        color: #404144;
+      }
+
+      input {
+        padding: 0 15px;
+        max-width: 100%;
+        width: 100%;
+        height: 40px;
+        border: 1px solid #0000001a;
+        border-radius: 4px;
+        background-color: #00000000;
+        box-shadow: none;
+        font-size: 14px;
+        outline: none;
+      }
+    }
+
+    button {
+      width: 100%;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      background-color: #ff5e2b;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+    }
+  }
 }
