@@ -10,7 +10,7 @@ function LostPassword() {
           <label>Tên đăng nhập hoặc email </label>
           <input type="text" />
         </div>
-        <button>ĐẶT LẠI MẬT KHẨU</button>
+        <button>ĐẶT LẠI MẬT KHẨU ĐI</button>
       </form>
     </div>
   );
