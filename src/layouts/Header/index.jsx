@@ -1,19 +1,43 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
 import { TfiMenu } from 'react-icons/tfi';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/modules/userSlice';
+import { formatPrice } from '../../utilities';
 
 const navigation = [
   { href: '/tat-ca-khoa-hoc', name: 'Khóa học' },
-  { href: '/tat-ca-san-pham', name: 'Sản phẩm' },
+  { href: '/membership', name: 'Membership' },
   { href: '/hop-tac-giang-vien', name: 'Hợp tác giảng viên' },
-  { href: '/blog', name: 'Blog' },
   { href: '/lien-he', name: 'Liên hệ' },
 ];
 
 const Header = () => {
   const [showNavbar, setShowNavbar] = useState(false);
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+
+  let navigate = useNavigate();
+
+  const loggedInUser = useSelector(state => state.user.current);
+  const courses = useSelector(state => state.cart.courses);
+  const isLoggedIn = !!loggedInUser.id;
+
+  const logoutHandler = () => {
+    const action = logout();
+    dispatch(action);
+  };
+
+  const totalPriceHandler = () => {
+    let total = 0;
+    courses.forEach(item => {
+      total += item.quantity * item.price;
+    });
+
+    return formatPrice(total);
+  };
 
   return (
     <>
@@ -38,7 +62,10 @@ const Header = () => {
                 <p className="text-lg text-white font-medium">Mở quyền truy cập tất cả khoá học và tài nguyên!</p>
               </div>
 
-              <button className="uppercase transition-[background-color] duration-200 ease-linear bg-white hover:bg-[#f4f4f4] text-gray-800 py-3 px-5 text-sm">
+              <button
+                onClick={() => navigate('/membership')}
+                className="uppercase transition-[background-color] duration-200 ease-linear bg-white hover:bg-[#f4f4f4] text-gray-800 py-3 px-5 text-sm"
+              >
                 Tìm hiểu ngay Membership
               </button>
             </div>
@@ -53,13 +80,9 @@ const Header = () => {
                   <TfiMenu color="#fff" size={24} />
                 </button>
 
-                <Link to="/" className="max-w-[150px] block">
-                  <img
-                    src="https://digifox.vn/wp-content/uploads/2021/12/Logo-Digifox-03-1.png"
-                    alt="logo"
-                    className="w-full h-full object-cover"
-                  />
-                </Link>
+                <h1 onClick={() => navigate('/')} className="cursor-pointer font-bold text-white text-4xl">
+                  DCUni.
+                </h1>
               </div>
 
               <ul className="hidden lg:flex items-center gap-4 xl:gap-6">
@@ -89,15 +112,74 @@ const Header = () => {
               </div>
 
               <div className="flex items-center gap-4 text-white text-base">
-                <Link to="/gio-hang">
-                  <AiOutlineShoppingCart size={28} />
-                </Link>
-                <p className="hidden xl:block">
-                  0 <span>đ</span>
-                </p>
-                <Link to="/">
-                  <AiOutlineUser size={28} />
-                </Link>
+                <div className="flex items-center gap-1">
+                  <Link to="/gio-hang" className="relative">
+                    <AiOutlineShoppingCart size={28} />
+                    <span className="absolute flex text-xs items-center justify-center w-5 h-5 rounded-full bg-primary-color text-white top-[-8px] right-[-4px]">
+                      {courses.length}
+                    </span>
+                  </Link>
+                  <p className="hidden xl:block">{totalPriceHandler()}</p>
+                </div>
+
+                <div
+                  className="flex items-center gap-1 relative cursor-pointer after:content-[''] after:bg-transparent after:absolute after:w-[220px] after:h-[20px] after:right-0 after:bottom-[-20px]"
+                  onMouseEnter={() => setShowDropdownMenu(true)}
+                  onMouseLeave={() => setShowDropdownMenu(false)}
+                >
+                  <Link to={isLoggedIn ? '/dashboard' : '/tai-khoan'}>
+                    <AiOutlineUser size={28} />
+                  </Link>
+
+                  {isLoggedIn && <p>{loggedInUser.name}</p>}
+
+                  {showDropdownMenu && isLoggedIn ? (
+                    <div className="absolute w-[220px] shadow-md bg-white top-10 right-0">
+                      <ul className="pl-4 py-2">
+                        <li>
+                          <Link
+                            to="/dashboard"
+                            className="py-2 text-[#848484] text-sm hover:text-primary-hover-color transition-[color] duration-200 ease-linear"
+                          >
+                            Trang tài khoản
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/gio-hang"
+                            className="py-2 text-[#848484] text-sm hover:text-primary-hover-color transition-[color] duration-200 ease-linear"
+                          >
+                            Đơn hàng
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/membership"
+                            className="py-2 text-[#848484] text-sm hover:text-primary-hover-color transition-[color] duration-200 ease-linear"
+                          >
+                            Membership
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/tat-ca-khoa-hoc"
+                            className="py-2 text-[#848484] text-sm hover:text-primary-hover-color transition-[color] duration-200 ease-linear"
+                          >
+                            Khóa học
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            onClick={logoutHandler}
+                            className="py-2 text-[#848484] text-sm hover:text-primary-hover-color transition-[color] duration-200 ease-linear"
+                          >
+                            Đăng xuất
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>

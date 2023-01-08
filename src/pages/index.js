@@ -1,10 +1,13 @@
 export { default as Home } from './Home';
 export { default as Contact } from './Contact';
-export { default as Blog } from './Blog';
 export { default as LecturersCooperation } from './LecturersCooperation';
 export { default as AllProducts } from './AllProducts';
 export { default as AllCourses } from './AllCourses';
 export { default as Cart } from './Cart';
 export { default as Checkout } from './Checkout';
 export { default as Account } from './Account';
-export { default as LostPassword } from './LostPassword';
+export { default as ForgotPassword } from './ForgotPassword';
+export { default as SuccessfulPasswordReset } from './SuccessfulPasswordReset';
+export { default as CourseDetails } from './CourseDetails';
+export { default as Dashboard } from './Dashboard';
+export { default as Membership } from './Membership';

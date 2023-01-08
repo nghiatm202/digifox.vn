@@ -1,14 +1,17 @@
 import {
+  Account,
   AllCourses,
   AllProducts,
-  Blog,
   Cart,
   Checkout,
   Contact,
   Home,
   LecturersCooperation,
-  Account,
-  LostPassword,
+  ForgotPassword,
+  Dashboard,
+  SuccessfulPasswordReset,
+  CourseDetails,
+  Membership,
 } from '../pages';
 
 const routes = [
@@ -19,10 +22,6 @@ const routes = [
   {
     path: '/lien-he',
     element: <Contact />,
-  },
-  {
-    path: '/blog',
-    element: <Blog />,
   },
   {
     path: '/hop-tac-giang-vien',
@@ -49,8 +48,24 @@ const routes = [
     element: <Account />,
   },
   {
-    path: '/lost-password',
-    element: <LostPassword />,
+    path: '/dashboard',
+    element: <Dashboard />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/successful-password-reset',
+    element: <SuccessfulPasswordReset />,
+  },
+  {
+    path: '/khoa-hoc/:courseId',
+    element: <CourseDetails />,
+  },
+  {
+    path: '/membership',
+    element: <Membership />,
   },
 ];
 

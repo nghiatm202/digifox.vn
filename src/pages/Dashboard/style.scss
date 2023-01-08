@@ -1,0 +1,29 @@
+.dashboard-page {
+  .dashboard-container {
+    --dashboard-spacing: 30px;
+    margin-left: calc(-1 * var(--dashboard-spacing));
+    margin-bottom: calc(-1 * var(--dashboard-spacing));
+
+    .dashboard-left {
+      width: calc(100% - var(--dashboard-spacing));
+      margin-left: var(--dashboard-spacing);
+      margin-bottom: var(--dashboard-spacing);
+    }
+
+    .dashboard-right {
+      width: calc(100% - var(--dashboard-spacing));
+      margin-left: var(--dashboard-spacing);
+      margin-bottom: var(--dashboard-spacing);
+    }
+
+    @media (min-width: 768px) {
+      .dashboard-left {
+        width: calc(20% - var(--dashboard-spacing));
+      }
+
+      .dashboard-right {
+        width: calc(80% - var(--dashboard-spacing));
+      }
+    }
+  }
+}

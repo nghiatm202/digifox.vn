@@ -7,32 +7,44 @@
 
 // load all pages style
 @import '../pages/Home/style.scss';
-@import '../pages/Blog/style.scss';
 @import '../pages/AllProducts/style.scss';
 @import '../pages/AllCourses/style.scss';
 @import '../pages/Cart/style.scss';
 @import '../pages/Account/style.scss';
-@import '../pages/LostPassword/style.scss';
+@import '../pages/CourseDetails/style.scss';
+@import '../pages/Dashboard/style.scss';
 
 // load all swiper style
 @import 'swiper/css';
 
+// load all toastify style
+@import 'react-toastify/dist/ReactToastify.css';
+
 .App {
-  display: grid;
-  height: 100vh;
-  grid-template-rows: auto 1fr auto;
+  // display: grid;
+  // height: 100vh;
+  // grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-wrapper {
+  flex: 1;
 }
 
 main:has(> .checkout-page),
 main:has(> .home-page),
 main:has(> .contact-page),
-main:has(> .lecturers-cooperation-page) {
+main:has(> .lecturers-cooperation-page),
+main:has(> .account-page) {
   background-color: #f8f8f8;
 }
 
 .main-wrapper:has(> main > .checkout-page),
 .main-wrapper:has(> main > .home-page),
 .main-wrapper:has(> main > .contact-page),
-.main-wrapper:has(> main > .lecturers-cooperation-page) {
+.main-wrapper:has(> main > .lecturers-cooperation-page),
+.main-wrapper:has(> main > .account-page) {
   background-color: #f8f8f8;
 }

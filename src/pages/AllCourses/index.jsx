@@ -1,112 +1,129 @@
-import { Pagination, Star } from '../../components';
-import { TbUsers } from 'react-icons/tb';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { useMemo, useState } from 'react';
+import { MdOutlinePlayLesson } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import courseApi from '../../apis/courseApi';
+import { Loading, Pagination, Star } from '../../components';
+import { addToCart } from '../../store/modules/cartSlice';
+import { formatPrice } from '../../utilities';
 
 const image2 = require('../../assets/images/image-2.jpg');
-
-const courseList = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-  { id: 10 },
-  { id: 11 },
-  { id: 12 },
-  { id: 13 },
-  { id: 14 },
-  { id: 15 },
-  { id: 16 },
-  { id: 17 },
-  { id: 18 },
-];
 
 let PageSize = 12;
 
 const AllCourses = () => {
+  const [loading, setLoading] = useState(true);
+  const [courseList, setCourseList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const currentCourseData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
 
     return courseList.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, courseList]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await courseApi.getAll();
+        setCourseList(data);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+
+      setLoading(false);
+    })();
+  }, []);
 
   return (
-    <div className="all-courses-page py-12 md:py-16">
-      <div className="course-list flex flex-wrap">
-        {currentCourseData.map((course) => {
-          return (
-            <div
-              key={course.id}
-              className="course-item border cursor-pointer border-border-color flex flex-col overflow-hidden rounded"
-            >
-              <img src={image2} alt="course" className="h-[226px] w-full object-cover" />
+    <div className="all-courses-page py-12 md:py-16 h-full">
+      {loading ? (
+        <div className="flex items-center justify-center m-auto h-full">
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <div className="course-list flex flex-wrap">
+            {currentCourseData.map(course => {
+              return (
+                <div
+                  onClick={() => navigate(`/khoa-hoc/${course.id}`)}
+                  key={course.id}
+                  className="course-item border cursor-pointer border-border-color flex flex-col overflow-hidden rounded"
+                >
+                  <img
+                    src={course.banner}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = image2;
+                    }}
+                    alt="course"
+                    className="h-[226px] w-full object-cover"
+                  />
 
-              <div className="flex flex-col flex-1 gap-y-5 p-5">
-                <Star stars={5} />
+                  <div className="flex flex-col flex-1 gap-y-5 p-5">
+                    <Star stars={5} />
 
-                <p className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear">
-                  Khóa học kiếm tiền với POD trên Etsy cho người mới bắt đầu – Bán hàng online không cần vốn
-                </p>
-
-                <div className="flex flex-col gap-y-5 mt-auto">
-                  <div className="flex items-center gap-x-2">
-                    <TbUsers size={20} />
-                    <span className="text-base">5</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 overflow-hidden rounded-full">
-                      <img
-                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80"
-                        alt="avatar"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-[#757c83] text-sm">
-                      By <span className="text-title-color font-medium">Nguyễn Thị Linh Nhi</span> In{' '}
-                      <span className="text-title-color font-medium">Khóa lẻ</span>
+                    <p className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear">
+                      {course.name}
                     </p>
+
+                    <div className="flex flex-col gap-y-5 mt-auto">
+                      <div className="flex items-center gap-x-2">
+                        <MdOutlinePlayLesson size={20} className="text-primary-color" />
+                        <span className="text-base">{course.lessons}</span>
+                        <span className="text-base">bài học</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto flex-col gap-y-2 lg:flex-row px-5 py-3 flex items-center justify-between border-t border-border-color">
+                    <div className="flex gap-x-2 items-center text-base">
+                      <p className="text-primary-color font-semibold">
+                        {formatPrice(course.price ? course.price : 650000)}
+                      </p>
+                    </div>
+
+                    <button className="flex items-center gap-1 text-base border transition-[background-color] duration-200 ease-linear hover:text-white hover:bg-primary-color text-primary-color border-primary-color bg-white rounded py-1.5 px-3">
+                      <AiOutlineShoppingCart />
+                      <span
+                        onClick={() => {
+                          const action = addToCart({
+                            id: course.id,
+                            title: course.name,
+                            price: course.price ? course.price : 650000,
+                            image: course.banner,
+                            quantity: 1,
+                          });
+
+                          dispatch(action);
+                          toast.success(`Khóa học ${course.name} đã được thêm vào giỏ hàng.`);
+                        }}
+                      >
+                        Thêm vào giỏ hàng
+                      </span>
+                    </button>
                   </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
 
-              <div className="mt-auto flex-col gap-y-2 lg:flex-row px-5 py-3 flex items-center justify-between border-t border-border-color">
-                <div className="flex gap-x-2 items-center text-base">
-                  <p className="text-gray-300 line-through">
-                    2.599.999
-                    <span>đ</span>
-                  </p>
-                  <p className="text-primary-color font-semibold">
-                    599.999
-                    <span>đ</span>
-                  </p>
-                </div>
-
-                <button className="flex items-center gap-1 text-base border transition-[background-color] duration-200 ease-linear hover:text-white hover:bg-primary-color text-primary-color border-primary-color bg-white rounded py-1.5 px-3">
-                  <AiOutlineShoppingCart />
-                  <span>Thêm vào giỏ hàng</span>
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <Pagination
-        className="pagination-bar mt-8 flex items-center justify-center"
-        currentPage={currentPage}
-        totalCount={courseList.length}
-        pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+          <Pagination
+            className="pagination-bar mt-8 flex items-center justify-center"
+            currentPage={currentPage}
+            totalCount={courseList.length}
+            pageSize={PageSize}
+            onPageChange={page => setCurrentPage(page)}
+          />
+        </>
+      )}
     </div>
   );
 };

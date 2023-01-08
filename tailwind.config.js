@@ -29,12 +29,12 @@ module.exports = {
         color: 'color',
       },
       boxShadow: {
-        'blog-item': '0 0 10px 0 rgb(0 0 0 / 15%)',
         'product-item': '0 0 4px rgb(0 0 0 / 12%)',
         'wd-button': '1px 1px 1px rgb(0 0 0 / 10%)',
         'checkout-box': '1px 1px 2px rgb(0 0 0 / 5%)',
         'course-item': '0px 0px 10px 0px rgb(0 0 0 / 7%)',
         'search-input': '0 -1px 9px rgb(0 0 0 / 17%)',
+        'course-details-right': '0px 16px 40px 0px rgb(176 112 112 / 19%)',
       },
     },
   },

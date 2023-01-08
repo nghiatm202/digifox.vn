@@ -1,0 +1,55 @@
+.course-details-page {
+  .hero-image {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6)),
+      url(https://digifox.vn/wp-content/uploads/2021/12/02.jpg);
+    background-size: cover;
+  }
+
+  .hero-wrapper {
+    --hero-wrapper-spacing: 30px;
+    --hero-wrapper-columns: 2;
+    margin-left: calc(-1 * var(--hero-wrapper-spacing));
+    margin-bottom: calc(-1 * var(--hero-wrapper-spacing));
+
+    .hero-item {
+      width: calc(100% - var(--hero-wrapper-spacing));
+      margin-left: var(--hero-wrapper-spacing);
+      margin-bottom: var(--hero-wrapper-spacing);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-item {
+        width: calc(calc(100% / var(--hero-wrapper-columns)) - var(--hero-wrapper-spacing));
+      }
+    }
+  }
+
+  .course-details-container {
+    --course-details-spacing: 30px;
+    --course-details-bottom-spacing: 80px;
+    margin-left: calc(-1 * var(--course-details-spacing));
+    margin-bottom: calc(-1 * var(--course-details-bottom-spacing));
+
+    .course-details-left {
+      width: calc(100% - var(--course-details-spacing));
+      margin-left: var(--course-details-spacing);
+      margin-bottom: var(--course-details-bottom-spacing);
+    }
+
+    .course-details-right {
+      width: calc(100% - var(--course-details-spacing));
+      margin-left: var(--course-details-spacing);
+      margin-bottom: var(--course-details-bottom-spacing);
+    }
+
+    @media (min-width: 1024px) {
+      .course-details-left {
+        width: calc(70% - var(--course-details-spacing));
+      }
+
+      .course-details-right {
+        width: calc(30% - var(--course-details-spacing));
+      }
+    }
+  }
+}

@@ -156,7 +156,7 @@ const AllProducts = () => {
       </div>
 
       <div className="product-list flex flex-wrap">
-        {currentProductData.map((product) => {
+        {currentProductData.map(product => {
           return (
             <div
               key={product.id}
@@ -208,7 +208,7 @@ const AllProducts = () => {
         currentPage={currentPage}
         totalCount={productList.length}
         pageSize={PageSize}
-        onPageChange={(page) => setCurrentPage(page)}
+        onPageChange={page => setCurrentPage(page)}
       />
     </div>
   );

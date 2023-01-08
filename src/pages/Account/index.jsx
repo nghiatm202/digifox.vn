@@ -1,57 +1,17 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+
 function Account() {
-  const [isLogin, setIsLogin] = useState(true);
-  const handleNextPage = () => {
-    setIsLogin(prev => !prev);
-  };
+  const [loginView, setLoginView] = useState(true);
 
   return (
-    <div className="account">
-      <div className="grid grid-cols-2 gap-2">
-        <div className="col-login" style={{ display: isLogin ? 'block' : 'none' }}>
-          <h2 className="title">Đăng nhập</h2>
-          <form>
-            <div className="form-group">
-              <label>
-                Tên tài khoản hoặc địa chỉ email
-                <span>*</span>
-              </label>
-              <input type="text"></input>
-            </div>
-            <div className="form-group">
-              <label>
-                Password
-                <span>*</span>
-              </label>
-              <input type="text"></input>
-            </div>
-            <button>LOG IN</button>
-            <div className="form-footer">
-              <div className="form-group">
-                <input type="checkbox" id="remember-me" />
-                <label htmlFor="remember-me">Remember me</label>
-              </div>
-              <Link to="/lost-password">Lost your password?</Link>
-            </div>
-          </form>
-        </div>
-        <div className="col-register" style={{ display: isLogin ? 'none' : 'block' }}>
-          <h2 className="title">Đăng ký</h2>
-          <form>
-            <div className="form-group">
-              <label>
-                Địa chỉ email
-                <span>*</span>
-              </label>
-              <input type="text"></input>
-            </div>
-            <p>A link to set a new password will be sent to your email address.</p>
-            <button>ĐĂNG KÝ</button>
-          </form>
-        </div>
-        <div className="col-register-text">
-          <h2 className="title">Đăng ký</h2>
+    <div className="account-page py-12 md:py-16">
+      <div className="flex flex-col lg:flex-row gap-x-2 gap-y-8">
+        {loginView ? <LoginForm /> : <RegisterForm />}
+
+        <div className="col-register-text flex-1 lg:pl-7">
+          <h2 className="title uppercase">Đăng ký</h2>
           <div className="info">
             <p>
               Đăng ký trang web này cho phép bạn truy cập trạng thái và lịch sử đơn hàng của mình. Chỉ cần điền vào các
@@ -59,7 +19,12 @@ function Account() {
               những thông tin cần thiết để giúp quá trình mua hàng nhanh hơn và dễ dàng hơn.
             </p>
           </div>
-          <button onClick={handleNextPage}>{isLogin ? 'Đăng ký' : 'Đăng nhập'}</button>
+          <button
+            className="uppercase py-2 px-3 hover:bg-[#efefef] text-sm font-medium text-[#333] rounded"
+            onClick={() => setLoginView(prev => !prev)}
+          >
+            {loginView ? 'Đăng ký' : 'Đăng nhập'}
+          </button>
         </div>
       </div>
     </div>

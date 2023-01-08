@@ -1,33 +1,11 @@
 import { useState } from 'react';
 import { AccordionItem } from '../../components';
-
-const faqs = [
-  {
-    question: 'Khóa học có thời hạn sử dụng không?',
-    answer:
-      'Thời gian học phụ thuộc vào hình thức bạn đã mua khóa học là mua trực tiếp hay mua thông qua chương trình Membership. Nếu bạn mua trực tiếp khóa học thì thời gian sẽ là trọn đời. Nếu bạn mua theo Membership thì thời gian được tính theo gói Membership tương ứng. Gói Membership sẽ có những lợi thế riêng với việc truy cập không giới hạn nhiều tài nguyên trên Digifox.',
-  },
-  {
-    question: 'Tôi có thể nhận ưu đãi không?',
-    answer:
-      'Chương trình ưu đãi được áp dụng theo chương trình của Digifox. Tùy thuộc vào từng chương trình và đối tượng khách hàng sẽ có ưu đãi khác nhau.',
-  },
-  {
-    question: 'Tôi có thể nhận ưu đãi không?',
-    answer:
-      'Chương trình ưu đãi được áp dụng theo chương trình của Digifox. Tùy thuộc vào từng chương trình và đối tượng khách hàng sẽ có ưu đãi khác nhau.',
-  },
-  {
-    question: 'Tôi có thể nhận ưu đãi không?',
-    answer:
-      'Chương trình ưu đãi được áp dụng theo chương trình của Digifox. Tùy thuộc vào từng chương trình và đối tượng khách hàng sẽ có ưu đãi khác nhau.',
-  },
-];
+import { faqs } from '../../utilities';
 
 const Contact = () => {
   const [openAccordion, setOpenAccordion] = useState('0');
 
-  const toggleAccordionHandler = (index) => {
+  const toggleAccordionHandler = index => {
     if (openAccordion === index) {
       return setOpenAccordion('0');
     }
@@ -56,7 +34,7 @@ const Contact = () => {
         <div className="flex flex-1 flex-col md:pl-8">
           <p className="text-sm text-gray-400 mb-3">Vui lòng để lại thông tin để nhận tư vấn!</p>
           <h3 className="uppercase text-title-color text-xl pb-6 font-bold">
-            Hãy liên hệ digifox nếu có bất cứ câu hỏi nào
+            Hãy liên hệ DCUni nếu có bất cứ câu hỏi nào
           </h3>
 
           <p className="mb-7">
