@@ -1,0 +1,29 @@
+.lessions-page {
+  .lessions-container {
+    --cart-spacing: 0px;
+    margin-left: calc(-1 * var(--cart-spacing));
+    margin-bottom: calc(-1 * var(--cart-spacing));
+
+    .lessions-left {
+      width: calc(100% - var(--cart-spacing));
+      margin-left: var(--cart-spacing);
+      margin-bottom: var(--cart-spacing);
+    }
+
+    .lessions-right {
+      width: calc(100% - var(--cart-spacing));
+      margin-left: var(--cart-spacing);
+      margin-bottom: var(--cart-spacing);
+    }
+
+    @media (min-width: 1024px) {
+      .lessions-left {
+        width: calc(30% - var(--cart-spacing));
+      }
+
+      .lessions-right {
+        width: calc(70% - var(--cart-spacing));
+      }
+    }
+  }
+}

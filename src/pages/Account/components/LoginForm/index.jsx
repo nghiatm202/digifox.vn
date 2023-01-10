@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Loading } from '../../../../components';
 import { loginSchema } from '../../../../schemas';
 import { login } from '../../../../store/modules/userSlice';
@@ -31,6 +32,7 @@ const LoginForm = () => {
 
       actions.resetForm();
     } catch (error) {
+      toast.error('Thông tin tài khoản không tìm thấy trong hệ thống.');
       console.log('Failed to login:', error);
     }
 
@@ -91,7 +93,7 @@ const LoginForm = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="uppercase w-full flex items-center justify-center cursor-pointer rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
+          className="uppercase w-full gap-x-2 flex items-center justify-center cursor-pointer rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
         >
           {loading ? <Loading noCenter={true} /> : null}
           Đăng nhập

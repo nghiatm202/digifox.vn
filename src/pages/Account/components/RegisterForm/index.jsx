@@ -3,11 +3,14 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import countryListApi from '../../../../apis/countryListApi';
+import { Loading } from '../../../../components';
 import { registerSchema } from '../../../../schemas';
 import { register } from '../../../../store/modules/userSlice';
 
 const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [countryList, setCountryList] = useState(null);
 
@@ -26,14 +29,19 @@ const RegisterForm = () => {
     console.log(values);
 
     try {
+      setLoading(true);
       const action = register(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
 
       actions.resetForm();
+      toast.success('Đăng ký tài khoản thành công!');
     } catch (error) {
+      toast.error('Đăng ký tài khoản thất bại!');
       console.log('Failed to register:', error);
     }
+
+    setLoading(false);
   };
 
   const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -165,8 +173,9 @@ const RegisterForm = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="uppercase w-full rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 transition-[background-color] duration-200 ease-linear"
+          className="uppercase w-full gap-x-2 flex items-center justify-center rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 transition-[background-color] duration-200 ease-linear"
         >
+          {loading ? <Loading noCenter={true} /> : null}
           Đăng ký
         </button>
       </form>

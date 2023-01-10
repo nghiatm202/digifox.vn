@@ -18,6 +18,12 @@ const Layout = () => {
           </div>
           <Footer />
         </>
+      ) : location.pathname.includes('/bai-hoc/') ? (
+        <div className="main-wrapper">
+          <main className="w-full h-full">
+            <Outlet />
+          </main>
+        </div>
       ) : (
         <>
           <Header />

@@ -12,6 +12,7 @@ import {
   SuccessfulPasswordReset,
   CourseDetails,
   Membership,
+  Lessions,
 } from '../pages';
 
 const routes = [
@@ -62,6 +63,10 @@ const routes = [
   {
     path: '/khoa-hoc/:courseId',
     element: <CourseDetails />,
+  },
+  {
+    path: '/bai-hoc/:courseId',
+    element: <Lessions />,
   },
   {
     path: '/membership',

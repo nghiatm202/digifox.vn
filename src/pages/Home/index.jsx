@@ -135,7 +135,7 @@ const Home = () => {
         </Link>
       </div>
 
-      <div className="course-list flex flex-wrap">
+      <div className="course-list flex flex-wrap relative">
         {loading ? (
           <Loading />
         ) : (

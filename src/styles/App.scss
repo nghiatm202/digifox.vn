@@ -13,6 +13,7 @@
 @import '../pages/Account/style.scss';
 @import '../pages/CourseDetails/style.scss';
 @import '../pages/Dashboard/style.scss';
+@import '../pages/Lessions/style.scss';
 
 // load all swiper style
 @import 'swiper/css';
@@ -31,6 +32,7 @@
 
 .main-wrapper {
   flex: 1;
+  height: 100%;
 }
 
 main:has(> .checkout-page),

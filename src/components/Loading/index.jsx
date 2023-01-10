@@ -1,12 +1,15 @@
 const Loading = ({ noCenter }) => {
   return (
     <div className={noCenter ? '' : 'text-center m-auto'}>
-      <div role="status">
+      <div
+        role="status"
+        className={noCenter ? null : 'absolute inline-block top-[55%] left-1/2 translate-x-[-50%] translate-y-[-50%]'}
+      >
         <svg
           aria-hidden="true"
           className={`${
             noCenter ? 'w-6 h-6 text-gray-100' : 'w-8 h-8 text-gray-300'
-          } inline mr-2 animate-spin fill-primary-color`}
+          } inline animate-spin fill-primary-color`}
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

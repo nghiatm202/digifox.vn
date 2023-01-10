@@ -35,7 +35,7 @@ const CourseDetails = () => {
         const { data } = await courseApi.get(courseId);
         setCourse(data);
       } catch (error) {
-        console.log('Failed to fetch product', error);
+        console.log('Failed to fetch course details', error);
       }
 
       setLoading(false);

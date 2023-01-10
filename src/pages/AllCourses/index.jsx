@@ -53,7 +53,6 @@ const AllCourses = () => {
             {currentCourseData.map(course => {
               return (
                 <div
-                  onClick={() => navigate(`/khoa-hoc/${course.id}`)}
                   key={course.id}
                   className="course-item border cursor-pointer border-border-color flex flex-col overflow-hidden rounded"
                 >
@@ -65,12 +64,16 @@ const AllCourses = () => {
                     }}
                     alt="course"
                     className="h-[226px] w-full object-cover"
+                    onClick={() => navigate(`/khoa-hoc/${course.id}`)}
                   />
 
                   <div className="flex flex-col flex-1 gap-y-5 p-5">
                     <Star stars={5} />
 
-                    <p className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear">
+                    <p
+                      onClick={() => navigate(`/khoa-hoc/${course.id}`)}
+                      className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear"
+                    >
                       {course.name}
                     </p>
 

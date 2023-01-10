@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { StorageKeys } from '../constants';
 
-console.log(localStorage.getItem(StorageKeys.TOKEN));
+// console.log(localStorage.getItem(StorageKeys.TOKEN));
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost/api/v1',
+  baseURL: 'http://api.dc.edu.vn/api/v1',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem(StorageKeys.TOKEN)}`,

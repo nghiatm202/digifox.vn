@@ -11,3 +11,4 @@ export { default as SuccessfulPasswordReset } from './SuccessfulPasswordReset';
 export { default as CourseDetails } from './CourseDetails';
 export { default as Dashboard } from './Dashboard';
 export { default as Membership } from './Membership';
+export { default as Lessions } from './Lessions';

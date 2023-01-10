@@ -1,10 +1,25 @@
 import { useFormik } from 'formik';
+import { useState } from 'react';
+import userApi from '../../apis/userApi';
+import { Loading } from '../../components';
 import { forgotPasswordSchema } from '../../schemas';
 
 const ForgotPassword = () => {
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (values, actions) => {
-    console.log(values);
-    actions.resetForm();
+    try {
+      setLoading(true);
+
+      const data = await userApi.forgotPassword(values);
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log('Failed to forgot password: ', error);
+    }
+
+    setLoading(false);
   };
 
   const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -44,8 +59,9 @@ const ForgotPassword = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="uppercase w-full rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
+          className="uppercase w-full flex items-center justify-center rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
         >
+          {loading ? <Loading noCenter={true} /> : null}
           Đặt lại mật khẩu
         </button>
       </form>

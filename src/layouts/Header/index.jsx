@@ -134,7 +134,7 @@ const Header = () => {
                   {isLoggedIn && <p>{loggedInUser.name}</p>}
 
                   {showDropdownMenu && isLoggedIn ? (
-                    <div className="absolute w-[220px] shadow-md bg-white top-10 right-0">
+                    <div className="absolute z-20 w-[220px] shadow-md bg-white top-10 right-0">
                       <ul className="pl-4 py-2">
                         <li>
                           <Link
