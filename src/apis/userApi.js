@@ -20,6 +20,11 @@ const userApi = {
     const url = '/client/auth/forgot-password';
     return axiosClient.post(url, data);
   },
+
+  purchasedCourses(params) {
+    const url = '/client/user/purchased-courses';
+    return axiosClient.get(url, { params });
+  },
 };
 
 export default userApi;

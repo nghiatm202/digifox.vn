@@ -50,7 +50,7 @@ const Dashboard = () => {
             </div>
 
             <div
-              onClick={() => navigate('/tat-ca-khoa-hoc')}
+              onClick={() => navigate('/khoa-hoc-cua-toi')}
               className="flex items-center gap-x-2 py-2 px-5 rounded-l transition-[background-color] duration-200 ease-linear cursor-pointer hover:bg-[#f9e9e3] transi"
             >
               <span>

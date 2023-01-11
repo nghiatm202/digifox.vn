@@ -3,12 +3,11 @@ import { AiOutlineLock } from 'react-icons/ai';
 import { ImYoutube } from 'react-icons/im';
 import { IoIosArrowForward, IoIosArrowUp } from 'react-icons/io';
 import Moment from 'react-moment';
-import ReactPlayer from 'react-player';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
 import courseApi from '../../apis/courseApi';
 import { AccordionItem, Loading } from '../../components';
-import { addToCart } from '../../store/modules/cartSlice';
 import { chooseThisCourse, faqs, formatPrice, suitableForYou } from '../../utilities';
 
 const CourseDetails = () => {
@@ -17,9 +16,10 @@ const CourseDetails = () => {
   const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const contentCourseEl = useRef();
+  const loggedInUser = useSelector(state => state.user.current);
+  const isLoggedIn = !!loggedInUser.id;
 
-  const dispatch = useDispatch();
+  const contentCourseEl = useRef();
 
   const { courseId } = useParams();
   let navigate = useNavigate();
@@ -42,7 +42,17 @@ const CourseDetails = () => {
     })();
   }, [courseId]);
 
-  const { name, course_topics, banner, course_instructors, description, price, course_receives, updated_at } = course;
+  const {
+    name,
+    course_topics,
+    banner,
+    payment_link,
+    course_instructors,
+    description,
+    price,
+    course_receives,
+    updated_at,
+  } = course;
 
   const toggleAccordionHandler = index => {
     if (openAccordion === index) {
@@ -60,17 +70,10 @@ const CourseDetails = () => {
     setOpenCourseAccordion(index);
   };
 
-  const addToCartHandler = () => {
-    const action = addToCart({
-      id: courseId,
-      title: name,
-      price: price ? price : 650000,
-      image: banner,
-      quantity: 1,
-    });
-
-    dispatch(action);
-    navigate('/gio-hang');
+  const buyCourseHandler = () => {
+    if (!isLoggedIn) {
+      return toast.error('Vui lòng đăng nhập để mua khóa học hoặc đăng ký mới nếu bạn chưa là thành viên trên website');
+    }
   };
 
   return (
@@ -87,12 +90,19 @@ const CourseDetails = () => {
                 <div className="flex flex-col hero-item text-white">
                   <h1 className="text-3xl font-semibold tracking-wide">{name}</h1>
                   <p className="mt-10 text-sm mb-14" dangerouslySetInnerHTML={{ __html: description }}></p>
-                  <button
-                    onClick={addToCartHandler}
-                    className="transition-[background-color] duration-200 ease-linear p-5 rounded bg-[#FF5E2B] hover:bg-[#ee582b] text-white uppercase font-semibold text-sm max-w-[300px]"
+                  <a
+                    href={payment_link}
+                    onClick={buyCourseHandler}
+                    className={`
+                      ${
+                        price && payment_link
+                          ? 'cursor-pointer bg-[#FF5E2B] text-white hover:bg-[#ee582b]'
+                          : 'pointer-events-none cursor-not-allowed bg-[#cccccc] text-[#666666]'
+                      } flex items-center justify-center transition-[background-color] duration-200 ease-linear p-5 rounded uppercase font-semibold text-sm max-w-[300px]
+                    `}
                   >
                     Đăng ký ngay
-                  </button>
+                  </a>
                   <p className="mt-2 text-sm">
                     Last Updated:{' '}
                     <time className="ml-1 text-primary-color">
@@ -101,13 +111,16 @@ const CourseDetails = () => {
                   </p>
                 </div>
                 <div className="hero-item">
-                  <div className="player-wrapper relative pt-[56.25%]">
-                    <ReactPlayer
-                      className="react-player absolute top-0 left-0"
-                      url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                      width="100%"
-                      height="100%"
-                      controls={true}
+                  <div className="w-full h-full overflow-hidden rounded">
+                    <img
+                      src={`http://api.dc.edu.vn/v1/file/${banner}`}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src =
+                          'https://digifox.vn/wp-content/uploads/2019/05/Khoa-hoc-Tracking-Do-luong-Bao-cao-Marketing-768x432.jpg';
+                      }}
+                      className="w-full h-full object-cover"
+                      alt={name}
                     />
                   </div>
                 </div>
@@ -269,12 +282,19 @@ const CourseDetails = () => {
               <div className="course-details-right flex flex-col shadow-course-details-right p-5 bg-white">
                 <p className="text-2xl text-primary-color font-semibold">{name}</p>
                 <p className="text-[#212327] text-2xl font-semibold mt-1">{formatPrice(price ? price : 650000)}</p>
-                <button
-                  onClick={addToCartHandler}
-                  className="mt-10 transition-[background-color] duration-200 ease-linear p-3 rounded bg-[#FF5E2B] hover:bg-[#ee582b] text-white uppercase font-semibold text-sm"
+                <a
+                  href={payment_link}
+                  onClick={buyCourseHandler}
+                  className={`
+                      ${
+                        price && payment_link
+                          ? 'cursor-pointer bg-[#FF5E2B] text-white hover:bg-[#ee582b]'
+                          : 'pointer-events-none cursor-not-allowed bg-[#cccccc] text-[#666666]'
+                      } mt-10 flex items-center justify-center transition-[background-color] duration-200 ease-linear p-3 rounded uppercase font-semibold text-sm
+                    `}
                 >
                   Đăng ký ngay
-                </button>
+                </a>
 
                 <p className="text-lg text-[#404145] font-semibold pt-2 border-t mt-5 border-border-color mb-3">
                   Đăng ký Membership

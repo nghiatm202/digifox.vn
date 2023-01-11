@@ -1,12 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdOutlinePlayLesson } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { TbClick } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import courseApi from '../../apis/courseApi';
 import { Loading, Pagination, Star } from '../../components';
-import { addToCart } from '../../store/modules/cartSlice';
 import { formatPrice } from '../../utilities';
 
 const image2 = require('../../assets/images/image-2.jpg');
@@ -18,7 +15,6 @@ const AllCourses = () => {
   const [courseList, setCourseList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const currentCourseData = useMemo(() => {
@@ -53,27 +49,24 @@ const AllCourses = () => {
             {currentCourseData.map(course => {
               return (
                 <div
+                  onClick={() => navigate(`/khoa-hoc/${course.id}`)}
                   key={course.id}
                   className="course-item border cursor-pointer border-border-color flex flex-col overflow-hidden rounded"
                 >
                   <img
-                    src={course.banner}
+                    src={`http://api.dc.edu.vn/v1/file/${course.banner}`}
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null;
                       currentTarget.src = image2;
                     }}
                     alt="course"
                     className="h-[226px] w-full object-cover"
-                    onClick={() => navigate(`/khoa-hoc/${course.id}`)}
                   />
 
                   <div className="flex flex-col flex-1 gap-y-5 p-5">
                     <Star stars={5} />
 
-                    <p
-                      onClick={() => navigate(`/khoa-hoc/${course.id}`)}
-                      className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear"
-                    >
+                    <p className="line-clamp-2 text-title-color text-lg font-bold hover:text-primary-color transition-[color] duration-200 ease-linear">
                       {course.name}
                     </p>
 
@@ -87,30 +80,15 @@ const AllCourses = () => {
                   </div>
 
                   <div className="mt-auto flex-col gap-y-2 lg:flex-row px-5 py-3 flex items-center justify-between border-t border-border-color">
-                    <div className="flex gap-x-2 items-center text-base">
-                      <p className="text-primary-color font-semibold">
+                    <div className="flex gap-x-2 items-center">
+                      <p className="text-primary-color font-semibold text-lg">
                         {formatPrice(course.price ? course.price : 650000)}
                       </p>
                     </div>
 
                     <button className="flex items-center gap-1 text-base border transition-[background-color] duration-200 ease-linear hover:text-white hover:bg-primary-color text-primary-color border-primary-color bg-white rounded py-1.5 px-3">
-                      <AiOutlineShoppingCart />
-                      <span
-                        onClick={() => {
-                          const action = addToCart({
-                            id: course.id,
-                            title: course.name,
-                            price: course.price ? course.price : 650000,
-                            image: course.banner,
-                            quantity: 1,
-                          });
-
-                          dispatch(action);
-                          toast.success(`Khóa học ${course.name} đã được thêm vào giỏ hàng.`);
-                        }}
-                      >
-                        Thêm vào giỏ hàng
-                      </span>
+                      <TbClick />
+                      <span>Xem ngay</span>
                     </button>
                   </div>
                 </div>

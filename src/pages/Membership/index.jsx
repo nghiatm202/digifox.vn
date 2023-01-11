@@ -12,7 +12,7 @@ const Membership = () => {
   return (
     <div className="membership-page py-12 md:py-16">
       <h1 className="text-primary-color font-bold text-center mx-auto uppercase text-5xl mb-20">Membership</h1>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="flex flex-col bg-white shadow-xl p-6 rounded">
           <p className="text-2xl font-bold mb-1 text-[#111]">Monthly</p>
           <p className="text-base text-[#111] mb-4">Mô tả gói</p>

@@ -2,8 +2,6 @@ import {
   Account,
   AllCourses,
   AllProducts,
-  Cart,
-  Checkout,
   Contact,
   Home,
   LecturersCooperation,
@@ -13,6 +11,7 @@ import {
   CourseDetails,
   Membership,
   Lessions,
+  MyCourses,
 } from '../pages';
 
 const routes = [
@@ -35,14 +34,6 @@ const routes = [
   {
     path: '/tat-ca-khoa-hoc',
     element: <AllCourses />,
-  },
-  {
-    path: '/gio-hang',
-    element: <Cart />,
-  },
-  {
-    path: '/dat-hang',
-    element: <Checkout />,
   },
   {
     path: '/tai-khoan',
@@ -71,6 +62,10 @@ const routes = [
   {
     path: '/membership',
     element: <Membership />,
+  },
+  {
+    path: '/khoa-hoc-cua-toi',
+    element: <MyCourses />,
   },
 ];
 

@@ -147,7 +147,7 @@ const Home = () => {
                 className="course-item relative cursor-pointer shadow-course-item flex flex-col overflow-hidden rounded bg-white"
               >
                 <img
-                  src={banner}
+                  src={`http://api.dc.edu.vn/v1/file/${banner}`}
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
                     currentTarget.src =
