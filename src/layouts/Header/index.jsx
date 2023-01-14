@@ -22,7 +22,7 @@ const Header = () => {
   let navigate = useNavigate();
 
   const loggedInUser = useSelector(state => state.user.current);
-  const isLoggedIn = !!loggedInUser.id;
+  const isLoggedIn = !!loggedInUser?.id;
 
   const logoutHandler = () => {
     const action = logout();

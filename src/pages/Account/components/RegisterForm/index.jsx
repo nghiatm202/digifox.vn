@@ -1,20 +1,16 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import countryListApi from '../../../../apis/countryListApi';
+import userApi from '../../../../apis/userApi';
 import { Loading } from '../../../../components';
 import { registerSchema } from '../../../../schemas';
-import { register } from '../../../../store/modules/userSlice';
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [countryList, setCountryList] = useState(null);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchCountryList() {
@@ -26,19 +22,17 @@ const RegisterForm = () => {
   }, []);
 
   const onSubmit = async (values, actions) => {
-    console.log(values);
-
     try {
       setLoading(true);
-      const action = register(values);
-      const resultAction = await dispatch(action);
-      unwrapResult(resultAction);
+      await userApi.register(values);
 
+      toast.success('Đăng ký tài khoản thành công');
       actions.resetForm();
-      toast.success('Đăng ký tài khoản thành công!');
     } catch (error) {
-      toast.error('Đăng ký tài khoản thất bại!');
-      console.log('Failed to register:', error);
+      const { response } = error;
+      const { data } = response;
+
+      toast.error(data.message);
     }
 
     setLoading(false);

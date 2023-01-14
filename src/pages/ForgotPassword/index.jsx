@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import userApi from '../../apis/userApi';
 import { Loading } from '../../components';
 import { forgotPasswordSchema } from '../../schemas';
@@ -11,12 +12,13 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
 
-      const data = await userApi.forgotPassword(values);
-      if (data) {
-        console.log(data);
-      }
+      const { message } = await userApi.forgotPassword(values);
+      toast.success(message);
     } catch (error) {
-      console.log('Failed to forgot password: ', error);
+      const { response } = error;
+      const { data } = response;
+
+      toast.error(data.message);
     }
 
     setLoading(false);
@@ -59,7 +61,7 @@ const ForgotPassword = () => {
         <button
           disabled={isSubmitting}
           type="submit"
-          className="uppercase w-full flex items-center justify-center rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
+          className="uppercase w-full gap-x-2 flex items-center justify-center rounded font-semibold hover:bg-[#e95c2c] bg-[#ff5e2b] text-white py-3 px-5 mb-5 transition-[background-color] duration-200 ease-linear"
         >
           {loading ? <Loading noCenter={true} /> : null}
           Đặt lại mật khẩu
