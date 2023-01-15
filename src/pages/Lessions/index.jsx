@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import courseApi from '../../apis/courseApi';
-import { AiOutlineLock } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineLock } from 'react-icons/ai';
 import { ImYoutube } from 'react-icons/im';
 import { IoIosArrowForward, IoIosArrowUp } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 import { Loading } from '../../components';
 import { SlArrowLeft } from 'react-icons/sl';
 import { MdOutlineClose } from 'react-icons/md';
+import { BiCheck } from 'react-icons/bi';
 
 const Lessions = () => {
   const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
   const [openCourseAccordion, setOpenCourseAccordion] = useState('0');
+  const [currentLession, setCurrentLession] = useState();
 
   const { courseId } = useParams();
   let navigate = useNavigate();
@@ -20,15 +22,15 @@ const Lessions = () => {
   const contentCourseEl = useRef();
 
   useEffect(() => {
-    console.log(course);
-  }, [course]);
-
-  useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const { data } = await courseApi.get(courseId);
         setCourse(data);
+
+        if (data.course_topics.length > 0) {
+          setCurrentLession(data.course_topics[0].course_lessions[0]);
+        }
       } catch (error) {
         console.log('Failed to fetch course details', error);
       }
@@ -36,6 +38,10 @@ const Lessions = () => {
       setLoading(false);
     })();
   }, [courseId]);
+
+  useEffect(() => {
+    console.log(course);
+  }, [course]);
 
   const { course_topics, name } = course;
 
@@ -58,6 +64,7 @@ const Lessions = () => {
               Nội dung khóa học
             </p>
 
+            {/* trái */}
             <ul className="w-full flex flex-col mb-8">
               {course_topics?.map((item, index) => {
                 return (
@@ -84,36 +91,46 @@ const Lessions = () => {
                           : { height: '0px' }
                       }
                     >
-                      <div className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear">
-                        <div className="flex items-center gap-2">
-                          <span>
-                            <ImYoutube color="#939aa3" size={18} />
-                          </span>
-                          <p>Bài 1: Giới thiệu về khóa học</p>
-                        </div>
+                      {item.course_lessions.map(lession => {
+                        return lession.video ? (
+                          <div
+                            onClick={() => setCurrentLession(lession.video)}
+                            key={lession.course_topic_id}
+                            className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear cursor-pointer"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>
+                                <ImYoutube color="#939aa3" size={18} />
+                              </span>
+                              <p>{lession.title}</p>
+                            </div>
 
-                        <div className="flex items-center gap-5">
-                          <time className="text-[#757c8e] font-medium">01:11</time>
-                          <span>
-                            <AiOutlineLock size={18} color="#939aa3" />
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear">
-                        <div className="flex items-center gap-2">
-                          <span>
-                            <ImYoutube color="#939aa3" size={18} />
-                          </span>
-                          <p>Bài 1: Giới thiệu về khóa học</p>
-                        </div>
+                            <div className="flex items-center gap-5">
+                              <span>
+                                <AiOutlineEye size={18} color="#939aa3" />
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            key={lession.course_topic_id}
+                            className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span>
+                                <ImYoutube color="#939aa3" size={18} />
+                              </span>
+                              <p>{lession.title}</p>
+                            </div>
 
-                        <div className="flex items-center gap-5">
-                          <time className="text-[#757c8e] font-medium">01:11</time>
-                          <span>
-                            <AiOutlineLock size={18} color="#939aa3" />
-                          </span>
-                        </div>
-                      </div>
+                            <div className="flex items-center gap-5">
+                              <span>
+                                <AiOutlineLock size={18} color="#939aa3" />
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </li>
                 );
@@ -139,15 +156,24 @@ const Lessions = () => {
                 <MdOutlineClose size={16} />
               </div>
             </div>
-            <div className="player-wrapper relative pt-[56.25%]">
-              <ReactPlayer
-                className="react-player absolute top-0 left-0"
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                width="100%"
-                height="100%"
-                controls={true}
-              />
-            </div>
+
+            {/* phải */}
+            {currentLession?.video ? (
+              <div className="player-wrapper relative pt-[56.25%]">
+                <ReactPlayer
+                  className="react-player absolute top-0 left-0"
+                  url={currentLession}
+                  width="100%"
+                  height="100%"
+                  controls={true}
+                />
+              </div>
+            ) : (
+              <p className="bg-[#ff5e2b] w-full flex items-center text-white gap-x-4 py-4 px-2">
+                <BiCheck size={32} />
+                <span className="text-base">Bạn chưa đăng ký khóa học nên chưa xem được. Đăng ký và học ngay nhé!</span>
+              </p>
+            )}
           </div>
         </div>
       )}

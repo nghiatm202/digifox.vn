@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AiOutlineLock } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineLock } from 'react-icons/ai';
 import { ImYoutube } from 'react-icons/im';
 import { IoIosArrowForward, IoIosArrowUp } from 'react-icons/io';
 import Moment from 'react-moment';
@@ -172,36 +172,46 @@ const CourseDetails = () => {
                               : { height: '0px' }
                           }
                         >
-                          <div className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear">
-                            <div className="flex items-center gap-2">
-                              <span>
-                                <ImYoutube color="#939aa3" size={18} />
-                              </span>
-                              <p>Bài 1: Giới thiệu về khóa học</p>
-                            </div>
+                          {item.course_lessions.map(lession => {
+                            return lession.video ? (
+                              <div
+                                key={lession.course_topic_id}
+                                onClick={() => navigate(`/bai-hoc/${item.course_id}`)}
+                                className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear cursor-pointer"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span>
+                                    <ImYoutube color="#939aa3" size={18} />
+                                  </span>
+                                  <p>{lession.title}</p>
+                                </div>
 
-                            <div className="flex items-center gap-5">
-                              <time className="text-[#757c8e] font-medium">01:11</time>
-                              <span>
-                                <AiOutlineLock size={18} color="#939aa3" />
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear">
-                            <div className="flex items-center gap-2">
-                              <span>
-                                <ImYoutube color="#939aa3" size={18} />
-                              </span>
-                              <p>Bài 1: Giới thiệu về khóa học</p>
-                            </div>
+                                <div className="flex items-center gap-5">
+                                  <span>
+                                    <AiOutlineEye size={18} color="#939aa3" />
+                                  </span>
+                                </div>
+                              </div>
+                            ) : (
+                              <div
+                                key={lession.course_topic_id}
+                                className="flex items-center justify-between last:border-b border-x border-[#E0E2EA] text-base text-[#161616] py-3 pl-5 pr-4 bg-white hover:bg-[#eff1f6] transition-[background-color] duration-200 ease-linear"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span>
+                                    <ImYoutube color="#939aa3" size={18} />
+                                  </span>
+                                  <p>{lession.title}</p>
+                                </div>
 
-                            <div className="flex items-center gap-5">
-                              <time className="text-[#757c8e] font-medium">01:11</time>
-                              <span>
-                                <AiOutlineLock size={18} color="#939aa3" />
-                              </span>
-                            </div>
-                          </div>
+                                <div className="flex items-center gap-5">
+                                  <span>
+                                    <AiOutlineLock size={18} color="#939aa3" />
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </li>
                     );
